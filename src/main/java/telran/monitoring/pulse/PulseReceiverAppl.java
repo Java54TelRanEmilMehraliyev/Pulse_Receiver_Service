@@ -2,7 +2,7 @@ package telran.monitoring.pulse;
 
 import java.net.*;
 import java.util.Arrays;
-import java.util.logging.Handler;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +16,11 @@ public class PulseReceiverAppl {
 
 	public static void main(String[] args) throws Exception {
 		EnvironmentConfig.logConfig(logger);
-		
+
+		ConsoleHandler consoleHandler = new ConsoleHandler();
+		consoleHandler.setLevel(Level.ALL);
+		logger.addHandler(consoleHandler);
+		logger.setLevel(Level.parse(EnvironmentConfig.LOGGING_LEVEL));
 
 		socket = new DatagramSocket(PORT);
 		byte[] buffer = new byte[MAX_BUFFER_SIZE];
